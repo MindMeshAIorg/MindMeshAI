@@ -1,0 +1,85 @@
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+credentials.json
+token.json
+client_secret*.json
+secrets/
+secrets.json
+*.pem
+*.key
+
+# Python virtual environments
+.mindmeshenv/
+.venv/
+venv/
+env/
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local databases and chat history
+*.db
+*.sqlite
+*.sqlite3
+
+# WhatsApp session and authentication data
+**/whatsapp-mcp-data/
+**/whatsapp-mcp-server/store/
+**/whatsapp-mcp-server/data/
+*.session
+*.session-journal
+*.session-wal
+*.session-shm
+*.auth
+
+# Gmail credentials and tokens
+gmail/credentials.json
+gmail/token.json
+
+# Telegram session data
+telegram_session/
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.bak
+
+# VS Code and IDE files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing and coverage
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build and packaging files
+build/
+dist/
+*.egg-info/
+
+# Generated AI model files
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+
+# Generated example outputs
+example_outputs/*
+!example_outputs/.gitkeep

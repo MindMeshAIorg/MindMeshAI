@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMesh AI - Account Integrations & Connectors</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/conectors.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <h1>MindMesh AI Connectors</h1>
+                <p>Connect and manage external communication accounts per user</p>
+            </div>
+            <div class="header-actions">
+                <a href="/dashboard" class="dashboard-link-btn" id="back-to-dashboard-btn">
+                    <span>←</span> Back to Dashboard
+                </a>
+                <div class="user-switcher">
+                    <label for="active-user-id">Active User:</label>
+                    <input type="text" id="active-user-id" placeholder="Logged-in User" />
+                    <button onclick="switchUser()">Switch</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- 1. GMAIL CARD -->
+            <div class="card" id="gmail-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>✉️</span> Gmail
+                    </div>
+                    <span class="badge disconnected" id="gmail-badge">Disconnected</span>
+                </div>
+                <div class="card-desc">
+                    Connect read-only access to import and sync relevant emails via Google OAuth.
+                    <div id="gmail-connected-info" style="margin-top: 0.5rem; font-weight: 600; color: #a5b4fc;"></div>
+                </div>
+                <div id="gmail-actions">
+                    <button class="btn" onclick="connectGmail()">Connect with Google</button>
+                </div>
+            </div>
+
+            <!-- 2. TELEGRAM CARD -->
+            <div class="card" id="telegram-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>✈️</span> Telegram
+                    </div>
+                    <span class="badge disconnected" id="telegram-badge">Disconnected</span>
+                </div>
+                <div class="card-desc">
+                    Sign in with your phone number and OTP code to sync Telegram chat history.
+                    <div id="telegram-connected-info" style="margin-top: 0.5rem; font-weight: 600; color: #a5b4fc;">
+                    </div>
+                </div>
+
+                <div id="telegram-step-1">
+                    <div class="form-group">
+                        <label for="tg-phone">Phone Number (with country code):</label>
+                        <input type="text" class="form-input" id="tg-phone" placeholder="+919876543210" />
+                    </div>
+                    <button class="btn" onclick="sendTelegramCode()">Send Login Code</button>
+                </div>
+
+                <div id="telegram-step-2" style="display: none;">
+                    <div class="form-group">
+                        <label for="tg-code">OTP Code received on Telegram:</label>
+                        <input type="text" class="form-input" id="tg-code" placeholder="12345" />
+                    </div>
+                    <div class="form-group">
+                        <label for="tg-password">2FA Password (if enabled):</label>
+                        <input type="password" class="form-input" id="tg-password" placeholder="Optional" />
+                    </div>
+                    <button class="btn" onclick="verifyTelegramCode()">Verify & Connect</button>
+                    <button class="btn btn-outline" style="margin-top: 0.5rem;"
+                        onclick="resetTelegramForm()">Back</button>
+                </div>
+
+                <div id="telegram-connected-actions" style="display: none;">
+                    <button class="btn btn-danger" onclick="disconnectAccount('TELEGRAM')">Disconnect Telegram</button>
+                </div>
+            </div>
+
+            <!-- 3. WHATSAPP CARD -->
+            <div class="card" id="whatsapp-card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span>💬</span> WhatsApp
+                    </div>
+                    <span class="badge disconnected" id="whatsapp-badge">Disconnected</span>
+                </div>
+                <div class="card-desc">
+                    Scan the dynamic QR code with WhatsApp on your phone to link your account.
+                    <div id="whatsapp-connected-info" style="margin-top: 0.5rem; font-weight: 600; color: #a5b4fc;">
+                    </div>
+                </div>
+
+                <div id="whatsapp-initial-actions">
+                    <button class="btn" onclick="startWhatsAppLogin()">Generate QR Code</button>
+                </div>
+
+                <div class="qr-container" id="whatsapp-qr-box">
+                    <img id="whatsapp-qr-img" src="" alt="WhatsApp QR Code" />
+                    <div class="qr-instructions">
+                        Open WhatsApp > Settings > Linked Devices > Link a Device
+                    </div>
+                </div>
+
+                <div id="whatsapp-connected-actions" style="display: none;">
+                    <button class="btn btn-danger" onclick="disconnectAccount('WHATSAPP')">Disconnect WhatsApp</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONNECTED ACCOUNTS TABLE -->
+        <div class="table-section">
+            <h2>
+                <span>Connected Accounts in Database</span>
+                <button class="btn btn-outline" style="width: auto; padding: 0.4rem 0.85rem; font-size: 0.85rem;"
+                    onclick="loadAccounts()">Refresh</button>
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Source</th>
+                        <th>Account Identifier</th>
+                        <th>Status</th>
+                        <th>Connected At</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="accounts-tbody">
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading accounts...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="alert-box"></div>
+
+    <script src="/static/conectors.js"></script>
+</body>
+
+</html>

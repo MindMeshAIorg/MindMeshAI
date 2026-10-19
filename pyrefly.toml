@@ -1,0 +1,20 @@
+search_path = [
+    ".",
+    "MCP_and_connectors",
+    "databases",
+    "RAG",
+    "testing_fetches",
+    "testings",
+    "notification_pipeline"
+]
+search-path = [
+    ".",
+    "MCP_and_connectors",
+    "databases",
+    "RAG",
+    "testing_fetches",
+    "testings",
+    "notification_pipeline"
+]
+python_interpreter_path = ".mindmeshenv/Scripts/python.exe"
+python-interpreter-path = ".mindmeshenv/Scripts/python.exe"

@@ -1,0 +1,131 @@
+# ==============================
+# LangChain / Agentic AI
+# ==============================
+
+
+langchain==1.4.2
+langchain-community==0.4.2
+langchain-openai==1.6.4
+langchain-groq==1.1.3
+langchain-google-genai==4.4.0
+langchain-tavily==0.2.18
+langchain-mcp-adapters==0.3.2
+
+# ==============================
+# LangGraph / Deep Agents
+# ==============================
+
+langgraph==1.2.12
+deepagents==0.7.18
+langgraph-checkpoint-postgres==3.1.0
+
+# ==============================
+# MCP
+# ==============================
+
+
+mcp==1.26.0
+# acyncronyzation
+nest_asyncio==1.6.0
+# ==============================
+# LLM Gateway
+# ==============================
+
+litellm==1.102.1
+
+# ==============================
+# LangSmith / Observability
+# ==============================
+
+langsmith==0.14.0
+
+# ==============================
+# Web / API
+# ==============================
+
+fastapi
+uvicorn[standard]
+jinja2
+requests==2.34.2
+pwdlib[argon2]==0.3.1
+python-multipart==0.0.20
+
+# ==============================
+# Data Validation
+# ==============================
+
+pydantic==2.13.5
+
+# ==============================
+# Vector Database (no use currently but on future)
+# ==============================
+
+qdrant-client==1.19.1
+
+# ==============================
+# Tavily
+# ==============================
+
+tavily-python==0.8.4
+
+# ==============================
+# PostgreSQL
+# ==============================
+
+psycopg[binary]==3.3.6
+psycopg-pool==3.3.2
+
+# ==============================
+# Country / Airport Data
+# ==============================
+
+airportsdata==20260315
+pycountry==26.2.16
+
+# ==============================
+# Environment
+# ==============================
+
+python-dotenv
+
+# ==============================
+# CASHING
+# ==============================
+upstash-redis==1.4.0
+
+
+reportlab==4.4.10
+
+#  JEV TypeSafe Client 
+typesafe-sdk==0.7.2
+
+
+
+playwright==1.55.0
+
+
+# for embedding
+FlagEmbedding==1.3.5
+
+pywinauto==0.6.9
+
+
+# ==============================
+# Google APIs / OAuth
+# ==============================
+
+google-api-python-client==2.187.0
+google-auth-oauthlib==1.2.2
+google-auth-httplib2==0.2.0
+
+# ==============================
+# Telegram Connector
+# ==============================
+
+telethon==1.42.0
+
+# ==============================
+# Session / Cookie Security
+# ==============================
+
+itsdangerous==2.2.0
