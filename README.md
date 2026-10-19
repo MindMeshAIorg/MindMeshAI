@@ -1,123 +1,200 @@
-#  MindMeshAI — Forgetfulness Firewall
+# 🧠 MindMeshAI
 
-**An AI-powered personal memory and commitment assistant that helps you remember important messages, deadlines, promises, and pending tasks from your conversations.**
+### AI-Powered Personal Assistant for Tasks, Deadlines & Reminders
 
-MindMeshAI aims to transform everyday conversations into actionable memories. Instead of manually creating reminders, users can ask questions about past conversations and receive relevant information, while important commitments can be identified for follow-up notifications.
+MindMeshAI is an AI-powered productivity assistant that transforms scattered conversations and emails into actionable tasks and reminders. It identifies commitments, extracts deadlines, tracks changes, and helps users stay organized through an intelligent chatbot powered by Retrieval-Augmented Generation (RAG).
 
-##  The Problem
+Instead of manually checking multiple platforms for important tasks, MindMeshAI brings relevant information together in one place.
 
-Important information gets lost in everyday conversations:
+## 🚀 Key Features
 
-- A friend asks you to return money on a particular date.
-- Your manager assigns a task with a deadline in WhatsApp.
-- An email contains an important meeting date or submission deadline.
-- You promise someone that you will complete a task but forget about it later.
-- You need to find when, where, or to whom you made a particular commitment.
+- **📩 Multi-Platform Integration:** Connects communication sources such as Gmail, Telegram, and WhatsApp.
+- **🤖 Automatic Task Detection:** Identifies actionable commitments, assignments, meetings, and work-related tasks from messages and emails.
+- **⏰ Smart Deadline Extraction:** Understands dates, times, and contextual deadlines to generate useful reminders.
+- **🔄 Deadline Updates:** Detects changes in task deadlines and updates existing reminders where supported.
+- **💬 AI-Powered Chatbot:** Answers questions using relevant information retrieved from connected data sources.
+- **🔎 Hybrid Retrieval:** Combines semantic vector search and keyword-based retrieval to improve information discovery.
+- **🔒 Privacy Filtering:** Redacts sensitive information, including OTPs, phone numbers, email addresses, and passwords, before storage where detected.
+- **🛡️ Privacy Middleware:** Adds an additional layer of protection when processing user data.
+- **🧠 Context-Aware Assistance:** Uses retrieved conversation and email context to provide relevant responses.
 
-Traditional reminder applications require users to manually create reminders. MindMeshAI aims to reduce this effort by extracting useful information from connected communication sources.
+## 🏗️ System Architecture
 
-##  The Solution
+MindMeshAI consists of a frontend, backend, communication connectors, data-processing pipelines, databases, and AI-powered components.
 
-MindMeshAI combines conversational AI, Retrieval-Augmented Generation (RAG), message processing, and notification workflows to build a searchable personal memory system.
+### Architecture Workflow
 
-Its core workflow is:
+```text
+             User Interface
+        React + TypeScript + Tailwind
+                     |
+                     v
+              FastAPI Backend
+                     |
+          Authentication / OAuth
+                     |
+          +----------+----------+
+          |          |          |
+        Gmail     Telegram   WhatsApp
+          |          |          |
+          +----------+----------+
+                     |
+                     v
+          Data Ingestion Pipeline
+                     |
+          Normalization & Cleaning
+                     |
+             Privacy Filtering
+                     |
+          +----------+----------+
+          |                     |
+          v                     v
+    Task Detection         RAG Pipeline
+          |                     |
+          v                     v
+    Deadline Extraction    Retrieval System
+          |                     |
+          v                     v
+    Reminder Generation    LLM Chatbot
+          |                     |
+          +----------+----------+
+                     |
+                     v
+           PostgreSQL / Qdrant
+```
 
-**Detect → Remember → Connect → Monitor → Verify → Intervene**
+*The diagram represents the overall architecture; individual integrations and processing steps depend on their implementation.*
 
-1. **Detect:** Process connected messages and identify potentially important information.
-2. **Remember:** Store searchable conversation content and relevant metadata.
-3. **Connect:** Retrieve context from previous conversations to answer questions.
-4. **Monitor:** Track important commitments, deadlines, events, and pending responses.
-5. **Verify:** Allow users to review and manage identified reminders.
-6. **Intervene:** Deliver useful notifications and support reminder actions.
+## ⚙️ Technology Stack
 
-##  Key Features
+| Component | Technologies |
+|---|---|
+| Frontend | React, TypeScript, Tailwind CSS |
+| Backend | Python, FastAPI |
+| Authentication | OAuth integrations |
+| Relational Database | PostgreSQL |
+| Vector Database | Qdrant |
+| AI & Language Models | LLMs, Agentic AI |
+| Retrieval | RAG, semantic search, BM25 |
+| Data Processing | Normalization, cleaning, metadata handling |
+| Privacy | PII detection and redaction middleware |
+| Version Control | Git, GitHub |
 
-###  Intelligent Reminder Workflow
+## 🔄 How It Works
 
-The project includes a notification pipeline designed to identify and manage important information, including:
+### 1. Connect Communication Sources
+Users connect supported communication platforms to retrieve relevant messages and emails.
 
-- `UNSEEN` — important information that has not yet been reviewed.
-- `WORK` — tasks and work-related responsibilities.
-- `DEADLINE` — time-sensitive submissions and deliverables.
-- `COMMITMENT` — promises and obligations.
-- `EVENT` — meetings and scheduled events.
-- `WAITING_FOR` — responses, files, or actions expected from others.
+### 2. Ingest and Process Data
+The connectors fetch messages, which are normalized into a consistent structure. Cleaning and metadata processing prepare the data for downstream pipelines.
 
-###  Conversational Memory Search
+### 3. Protect Sensitive Information
+Privacy filters detect and redact supported sensitive information before records are stored, helping reduce unnecessary exposure of personal data.
 
-Ask questions about your past WhatsApp conversations and emails using natural language.
+### 4. Detect Tasks and Deadlines
+The task-detection pipeline identifies commitments, extracts relevant deadlines, and converts actionable information into structured tasks and reminders.
 
-Example questions:
+### 5. Store and Retrieve Information
+PostgreSQL stores structured application data, while Qdrant supports vector-based retrieval for relevant contextual information.
 
-- "When did I tell Zain I would return his money?"
-- "What deadline did my manager mention?"
-- "What work am I supposed to finish this week?"
-- "Which messages contain important commitments?"
-- "What am I waiting for someone to send me?"
+### 6. Generate Contextual Responses
+The RAG pipeline retrieves relevant information and supplies it to the language model, enabling the chatbot to answer questions using available context.
 
-MindMeshAI uses retrieval to find relevant context and generate an answer grounded in the available conversation data.
+## 🧠 AI & RAG Pipeline
 
-###  WhatsApp Integration
-
-- Connect a personal WhatsApp account through a QR-based authentication flow supported by the WhatsApp MCP integration.
-- Access available chat history through a read-only integration.
-- Process messages and their metadata for search and analysis.
-- Use conversation and message identifiers to help trace retrieved information back to its source.
-- Support incremental synchronization using checkpoints, where configured.
-
-###  Gmail Integration
-
-- Connect Gmail through Google OAuth.
-- Retrieve email content using the configured Gmail API permissions.
-- Process emails for semantic retrieval and important information detection.
-- Preserve email identifiers and relevant metadata for source tracking.
-
-###  Retrieval-Augmented Generation (RAG)
-
-MindMeshAI uses a RAG pipeline to answer questions using relevant stored conversation content rather than relying only on the language model's pretrained knowledge.
+The RAG system helps users retrieve information from their connected communication data.
 
 The pipeline includes:
 
-1. Fetching messages and emails from connected sources.
-2. Normalizing source data.
-3. Splitting content into searchable chunks where appropriate.
-4. Generating embeddings using `BAAI/bge-m3`.
-5. Storing and retrieving vectors through Qdrant.
-6. Supplying relevant context to the language model.
-7. Generating a context-aware answer.
+- Document and message ingestion
+- Text cleaning and normalization
+- Metadata extraction
+- Text embeddings
+- Vector storage using Qdrant
+- Keyword-based retrieval using BM25
+- Hybrid retrieval using semantic and keyword search
+- Context retrieval for LLM-generated responses
 
+This approach helps the chatbot find relevant information instead of relying only on the language model's pretrained knowledge.
 
-The intended notification workflow supports actionable reminders, with options such as marking an item complete or requesting a later reminder, depending on the configured notification interface.
+## 🔐 Privacy & Security
 
-###  Source-Aware Memory
+MindMeshAI is designed with privacy as an important part of its data-processing workflow.
 
-Conversation records can include metadata such as:
+- **Sensitive Data Redaction:** Detects and redacts supported PII and secrets before database storage.
+- **Privacy Middleware:** Provides an additional processing safeguard.
+- **OAuth Authentication:** Enables authorized access to supported communication services.
+- **Controlled Data Processing:** Normalizes and filters retrieved messages before passing relevant information to downstream components.
 
-- User and source identifiers
-- Chat or conversation identifiers
-- Message or email identifiers
-- Sender and receiver information
-- Timestamps
-- Relevant content and classification metadata
+*Privacy filters can only redact information they successfully detect. Production deployments should also enforce secure credential management, access controls, encryption, and appropriate data-retention policies.*
 
-This metadata helps associate retrieved information with its original source.
+## 💻 Getting Started
 
+### Prerequisites
 
-## Technology Stack
+- Python 3.10 or later
+- Node.js and npm
+- Git
+- Access to the required communication platform APIs
+- PostgreSQL and Qdrant instances
+- API credentials for the services you configure
 
-| Technology | Purpose |
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/MindMeshAIorg/MindMeshAI.git
+cd MindMeshAI
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the location expected by your application and configure the credentials and connection settings required by your enabled services.
+
+Typical configuration categories include:
+
+- Google OAuth credentials for Gmail
+- Telegram API credentials
+- PostgreSQL connection settings
+- Qdrant connection settings
+- LLM provider API credentials
+- OAuth callback URLs
+
+**Important:** Use your project's actual environment variable names and never commit `.env`, OAuth tokens, API keys, or other secrets to GitHub.
+
+### 3. Install Dependencies
+
+Install the Python and frontend dependencies using the dependency files and commands configured in the repository.
+
+### 4. Start the Application
+
+Run the FastAPI backend and React frontend using their respective development commands. Configure the frontend to communicate with the correct backend URL.
+
+Refer to the project configuration for the exact commands, ports, and service-specific setup.
+
+## 📂 Core Components
+
+| Component | Responsibility |
 |---|---|
-| Python | Main application language |
-| FastAPI | Backend APIs |
-| LangChain / LLM integrations | Language-model and retrieval workflows, where configured |
-| Qdrant | Vector storage and semantic retrieval |
-| BAAI/bge-m3 | Text embeddings |
-| PostgreSQL | Structured application data and reminder records |
-| WhatsApp MCP | WhatsApp connection and message retrieval |
-| Gmail API | Email retrieval |
-| Google OAuth 2.0 | Gmail authentication |
-| Pydantic | Request and data validation |
-| Python dotenv | Environment variable configuration |
-| Progressive Web App / Service Worker | Browser notification support, where configured |
+| Frontend | User interface and chatbot interaction |
+| FastAPI Backend | API endpoints and application logic |
+| Connectors | Retrieve messages from supported platforms |
+| Normalizer | Convert messages into a consistent data format |
+| Privacy Filter | Detect and redact sensitive information |
+| Task Detection | Identify actionable commitments and deadlines |
+| PostgreSQL | Store structured application data |
+| Qdrant | Store and retrieve vector embeddings |
+| RAG Pipeline | Retrieve relevant context for chatbot responses |
+| LLM | Generate contextual natural-language responses |
 
+## 👥 Team
+
+- **Abubakar**
+- **Abdul Hannan**
+
+## 🎯 Project Goal
+
+MindMeshAI aims to eliminate the need to manually track commitments across multiple communication platforms by turning conversations into actionable reminders and making important information easier to find.
+
+---
+
+**MindMeshAI | Your conversations, organized into actions.**
