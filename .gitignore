@@ -83,3 +83,29 @@ dist/
 # Generated example outputs
 example_outputs/*
 !example_outputs/.gitkeep
+
+# Personal testing outputs
+testing_fetches/*_output.json
+
+# Experimental test scripts (ignore the entire folder)
+testings/
+
+# Local test scripts (optional)
+login_test1.py
+delete.py
+
+# WhatsApp MCP repository (if managed separately)
+whatsapp-mcp-server/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+credentials.json
+token.json
+client_secret*.json
